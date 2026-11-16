@@ -1,0 +1,6 @@
+topic-at-B points to B
+main-at-C points to C
+main remains at C
+topic remains at B
+current branch is topic
+no remote is configured

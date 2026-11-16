@@ -1,0 +1,5 @@
+PASS: force-with-lease rejected the stale push.
+PASS: rejected push preserved the collaborator's remote commit.
+PASS: force push succeeded in the equivalent fixture.
+PASS: force push changed the remote branch.
+All R11-T036 checks passed.

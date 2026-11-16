@@ -119,7 +119,7 @@
     },
     {
         "title": "Create local tag",
-        "tip": "git tag <tag-name>",
+        "tip": "# Switch to topic (which points to commit B):\ngit switch topic\n\n# Create a local tag at commit B:\ngit tag topic-at-B\n\n# Tag commit C on main without switching branches:\ngit tag main-at-C main\n\n# View local tags:\ngit show-ref --tags\n\n# Push a tag explicitly when you want to share it:\ngit push origin topic-at-B",
         "category": "Tagging"
     },
     {
@@ -135,7 +135,9 @@
     {
         "title": "Undo local changes with the content in index(staging)",
         "tip": "git checkout -- <file_name>",
-        "alternatives": ["git restore <file_name>"],
+        "alternatives": [
+            "git restore <file_name>"
+        ],
         "category": "Basic Operations"
     },
     {
@@ -506,7 +508,7 @@
         "category": "Log and History"
     },
     {
-        "title": "Don\u2019t consider changes for tracked file.",
+        "title": "Don’t consider changes for tracked file.",
         "tip": "git update-index --assume-unchanged <file_name>",
         "category": "Miscellaneous"
     },
@@ -950,7 +952,7 @@
     },
     {
         "title": "Send a collection of patches as emails",
-        "tip": "git send-email [<options>] <file|directory>\u2026\n\ngit send-email [<options>] <format-patch options>",
+        "tip": "git send-email [<options>] <file|directory>…\n\ngit send-email [<options>] <format-patch options>",
         "category": "Miscellaneous"
     },
     {

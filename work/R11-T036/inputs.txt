@@ -1,0 +1,17 @@
+Task: R11-T036
+Comparison: git push --force-with-lease vs git push --force
+
+Initial repository:
+A: Create notes.txt containing alpha
+B: Append beta to notes.txt
+C: Create todo.txt containing one
+
+Create topic branch at commit B.
+
+Scenario 1:
+A remote collaborator advances topic after the local clone's last fetch.
+The local force-with-lease push must be rejected.
+
+Scenario 2:
+Repeat with an equivalent fixture.
+A normal force push can overwrite the collaborator's remote update.

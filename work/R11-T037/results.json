@@ -1,0 +1,60 @@
+[
+  {
+    "check": "main points to commit C",
+    "passed": true,
+    "expected": "8f6e9137f03dd485a9f2b665c3da66e7d9cf4cf5",
+    "actual": "8f6e9137f03dd485a9f2b665c3da66e7d9cf4cf5"
+  },
+  {
+    "check": "topic points to commit B",
+    "passed": true,
+    "expected": "83ea597b6fb085510435e4e8ff0409666ba32e43",
+    "actual": "83ea597b6fb085510435e4e8ff0409666ba32e43"
+  },
+  {
+    "check": "three commits have distinct IDs",
+    "passed": true,
+    "expected": "3 distinct commit IDs",
+    "actual": [
+      "a8c62dff6377d18c951a66d834922d09bd2a1c3d",
+      "83ea597b6fb085510435e4e8ff0409666ba32e43",
+      "8f6e9137f03dd485a9f2b665c3da66e7d9cf4cf5"
+    ]
+  },
+  {
+    "check": "notes contains alpha and beta",
+    "passed": true,
+    "expected": "alpha\\nbeta\\n",
+    "actual": "'alpha\\nbeta\\n'"
+  },
+  {
+    "check": "todo exists on main",
+    "passed": true,
+    "expected": "one\\n",
+    "actual": "'one\\n'"
+  },
+  {
+    "check": "global command fails with unwritable HOME",
+    "passed": true,
+    "expected": "non-zero exit status",
+    "actual": {
+      "returncode": 255,
+      "stderr": "error: could not lock config file /var/folders/05/mdvyyv_x6zzczfby668c5jm40000gn/T/R11-T037-vkwenfnv/home/.gitconfig: Permission denied"
+    }
+  },
+  {
+    "check": "global command succeeds after permission repair",
+    "passed": true,
+    "expected": "exit status 0",
+    "actual": {
+      "returncode": 0,
+      "stderr": ""
+    }
+  },
+  {
+    "check": "global setting is false",
+    "passed": true,
+    "expected": "false",
+    "actual": "false"
+  }
+]

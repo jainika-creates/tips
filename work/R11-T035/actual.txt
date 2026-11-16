@@ -1,0 +1,110 @@
+$ git init -b main
+Initialized empty Git repository in /private/var/folders/05/mdvyyv_x6zzczfby668c5jm40000gn/T/R11-T035-8xcx_uqu/.git/
+
+$ git config user.name 'Course Student'
+
+$ git config user.email student@example.invalid
+
+$ git add -- notes.txt 'release notes.txt' 'sample data/guide.txt'
+
+$ git commit -m 'A: create notes'
+[main (root-commit) f82b2b2] A: create notes
+ 3 files changed, 3 insertions(+)
+ create mode 100644 notes.txt
+ create mode 100644 release notes.txt
+ create mode 100644 sample data/guide.txt
+
+$ git add -- notes.txt
+
+$ git commit -m 'B: append beta'
+[main 5ea5a4d] B: append beta
+ 1 file changed, 1 insertion(+)
+
+$ git rev-parse HEAD
+5ea5a4d28864d0c0c1667b2441fe6509b53428b4
+
+$ git branch topic
+
+$ git add -- todo.txt
+
+$ git commit -m 'C: add todo'
+[main 4d21c54] C: add todo
+ 1 file changed, 1 insertion(+)
+ create mode 100644 todo.txt
+
+$ git rev-list --reverse main
+f82b2b280bc2e1db32fc06f280c31755b0c9dcc5
+5ea5a4d28864d0c0c1667b2441fe6509b53428b4
+4d21c54a732c3a18bb2526993835cd566e5c18af
+
+PASS: Main has exactly three initial commits A, B and C.
+$ git rev-parse topic
+5ea5a4d28864d0c0c1667b2441fe6509b53428b4
+
+PASS: topic points to commit B.
+$ git add -- 'release notes.txt'
+
+$ git stash push --keep-index -- 'release notes.txt' 'sample data'
+Saved working directory and index state WIP on main: 4d21c54 C: add todo
+
+$ git diff --cached -- 'release notes.txt'
+diff --git a/release notes.txt b/release notes.txt
+index 5588eed..ab5951d 100644
+--- a/release notes.txt	
++++ b/release notes.txt	
+@@ -1 +1,2 @@
+ release base
++staged line
+
+$ git diff -- 'release notes.txt'
+
+$ git diff -- todo.txt
+diff --git a/todo.txt b/todo.txt
+index 5626abf..9d67757 100644
+--- a/todo.txt
++++ b/todo.txt
+@@ -1 +1,2 @@
+ one
++outside path line
+
+$ git stash show -p 'stash@{0}'
+diff --git a/release notes.txt b/release notes.txt
+index 5588eed..8aa5d98 100644
+--- a/release notes.txt	
++++ b/release notes.txt	
+@@ -1 +1,3 @@
+ release base
++staged line
++unstaged line
+diff --git a/sample data/guide.txt b/sample data/guide.txt
+index 620eb9e..75479da 100644
+--- a/sample data/guide.txt	
++++ b/sample data/guide.txt	
+@@ -1 +1,2 @@
+ directory base
++directory unstaged line
+
+PASS: Staged changes in release notes.txt remain staged.
+PASS: Unstaged changes in release notes.txt were removed from the working tree.
+PASS: Unstaged changes in the sample data directory were stashed.
+PASS: Changes outside the selected paths remain unstashed.
+PASS: The stash contains both selected unstaged changes.
+$ git stash list
+stash@{0}: WIP on main: 4d21c54 C: add todo
+
+PASS: A stash entry was created.
+$ git log --reverse '--format=%H %s' main
+f82b2b280bc2e1db32fc06f280c31755b0c9dcc5 A: create notes
+5ea5a4d28864d0c0c1667b2441fe6509b53428b4 B: append beta
+4d21c54a732c3a18bb2526993835cd566e5c18af C: add todo
+
+
+Commit A/B/C IDs:
+f82b2b280bc2e1db32fc06f280c31755b0c9dcc5 A: create notes
+5ea5a4d28864d0c0c1667b2441fe6509b53428b4 B: append beta
+4d21c54a732c3a18bb2526993835cd566e5c18af C: add todo
+
+Topic commit: 5ea5a4d28864d0c0c1667b2441fe6509b53428b4
+
+
+ALL CHECKS PASSED.

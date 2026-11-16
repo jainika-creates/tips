@@ -1,0 +1,6 @@
+1. Exactly three initial commits A, B and C.
+2. topic points to commit B.
+3. Staged changes remain staged after the stash.
+4. Unstaged changes in the selected paths are stashed.
+5. Unselected todo.txt modification remains unstashed.
+6. Stash contains the unstaged changes.

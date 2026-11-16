@@ -1,0 +1,4 @@
+Three distinct commits; main at C; topic at B.
+Global configuration fails while HOME is not writable.
+The same command succeeds after write permission is restored.
+core.ignorecase reads false.

@@ -1,0 +1,10 @@
+Repository: temporary Git repository
+Initial branch: main
+Author: Course Student <student@example.invalid>
+Commit A: notes.txt contains alpha\n
+Commit B: append beta\n to notes.txt
+Branch topic: created at commit B
+Commit C: todo.txt contains one\n
+Failure condition: HOME directory mode 0555
+Repair: restore HOME directory mode 0755
+Command: git config --global core.ignorecase false
