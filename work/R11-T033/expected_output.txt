@@ -1,0 +1,42 @@
+[Branch Containment: Commit A]
+Command: git branch --contains 689c20134f3ef9f49a54500751f8b48042a1f4d8
+Expected:
+* main
+  topic
+
+[Branch Containment: Commit B]
+Command: git branch --contains 4c564ef0dcc07580a68222b120ce5c357d7686bd
+Expected:
+* main
+  topic
+
+[Branch Containment: Commit C (local)]
+Command: git branch --contains c8e864d86b97b97653b54c73423a1647e54d8eb3
+Expected:
+* main
+
+[Branch Containment: Commit C (local + remote)]
+Command: git branch -a --contains c8e864d86b97b97653b54c73423a1647e54d8eb3
+Expected:
+* main
+  remotes/origin/main
+
+[Reversible Mistake 1: Accidental Branch Deletion]
+Command: git branch -D topic
+Expected: Deleted branch topic
+
+[Recovery 1: Branch Recreation]
+Command: git branch topic 4c564ef0dcc07580a68222b120ce5c357d7686bd
+Verification: git rev-parse topic -> 4c564ef0dcc07580a68222b120ce5c357d7686bd
+Tree Verification: git rev-parse topic^{tree} -> f85b72cccab2aab0cfca333f78ab1ff302be5f7b
+
+[Reversible Mistake 2: Accidental Hard Reset]
+Command: git reset --hard 689c20134f3ef9f49a54500751f8b48042a1f4d8
+Expected: HEAD is now at 689c201 Commit A: create notes.txt with alpha
+
+[Recovery 2: Reflog Recovery]
+Command: git reset --hard HEAD@{1}
+Expected: HEAD is now at c8e864d Commit C: create todo.txt with one
+Verification: todo.txt restored with content 'one'
+Tree Verification: git rev-parse HEAD^{tree} -> 70d571a7a75867c09d38254b1252d5e2402adaa6
+Working Tree Status: clean

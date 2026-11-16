@@ -1,0 +1,69 @@
+# Inputs for Assignment R11-T033: Find out branches containing commit-hash
+
+# 1. Initialize local bare remote repository
+mkdir remote_repo.git && cd remote_repo.git
+git init --bare
+cd ..
+
+# 2. Initialize working repository with branch main
+mkdir local_repo && cd local_repo
+git init -b main
+git config user.name "Course Student"
+git config user.email "student@example.invalid"
+
+# 3. Commit A: create notes.txt containing alpha
+echo "alpha" > notes.txt
+git add notes.txt
+git commit -m "Commit A: create notes.txt with alpha"
+
+# 4. Commit B: append beta to notes.txt
+echo "beta" >> notes.txt
+git add notes.txt
+git commit -m "Commit B: append beta to notes.txt"
+
+# 5. Create branch topic at commit B
+git branch topic
+
+# 6. Commit C: create todo.txt containing one
+echo "one" > todo.txt
+git add todo.txt
+git commit -m "Commit C: create todo.txt with one"
+
+# 7. Add local bare remote and push branches
+git remote add origin file://$(pwd)/../remote_repo.git
+git push origin main topic
+
+# 8. Check branch containment for Commit A
+git branch --contains 689c20134f3ef9f49a54500751f8b48042a1f4d8
+
+# 9. Check branch containment for Commit B
+git branch --contains 4c564ef0dcc07580a68222b120ce5c357d7686bd
+
+# 10. Check branch containment for Commit C (local only)
+git branch --contains c8e864d86b97b97653b54c73423a1647e54d8eb3
+
+# 11. Check branch containment for Commit C (local + remote)
+git branch -a --contains c8e864d86b97b97653b54c73423a1647e54d8eb3
+
+# 12. Reversible Mistake 1: Accidental branch deletion
+git branch -D topic
+git branch
+
+# 13. Recovery 1: Recreate branch topic at Commit B
+git branch topic 4c564ef0dcc07580a68222b120ce5c357d7686bd
+git rev-parse topic
+git rev-parse topic^{tree}
+
+# 14. Reversible Mistake 2: Accidental hard reset on main to Commit A
+git reset --hard 689c20134f3ef9f49a54500751f8b48042a1f4d8
+git rev-parse HEAD
+test ! -f todo.txt
+
+# 15. Recovery 2: Recover using reflog
+git reflog -n 5
+git reset --hard HEAD@{1}
+git rev-parse HEAD
+git rev-parse HEAD^{tree}
+test -f todo.txt
+cat todo.txt
+git status --short

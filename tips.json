@@ -225,6 +225,7 @@
         "alternatives": [
             "git branch --contains <commit-ish>"
         ],
+        "recovery": "#### Recovery from Accidental Branch Deletion or Hard Reset\n\n- **Recovery Point:** Find the commit hash of the lost state via `git reflog`\n- **Commands Used:**\n  - Recover deleted branch: `git branch <branch-name> <commit-hash>`\n  - Recover hard reset: `git reset --hard HEAD@{1}`\n- **Verification Steps:**\n  - Verify branch reference: `git rev-parse <branch-name>`\n  - Verify restored tree state: `git rev-parse <branch-name>^{tree}`\n  - Verify working tree files and `git status`\n- **What Can and Cannot Be Recovered:**\n  - *Can recover:* Any committed revision present in `.git/objects` and referenced in `git reflog`.\n  - *Cannot recover:* Uncommitted working-tree edits that were not staged or committed prior to a destructive operation, or commits pruned after reflog expiry (`gc.reflogExpire`).",
         "category": "Branching"
     },
     {
@@ -569,6 +570,7 @@
     {
         "title": "Dry run. (any command that supports dry-run flag should do.)",
         "tip": "git clean -fd --dry-run",
+        "example": "**Reproducible Example:**\n\nA complete, reproducible example demonstrating `git clean -fd --dry-run`:\n\n```sh\n# 1. Initialize temporary repository with branch 'main'\ngit init -b main\ngit config user.name \"Course Student\"\ngit config user.email \"student@example.invalid\"\n\n# 2. Commit A: notes.txt containing alpha\necho \"alpha\" > notes.txt\ngit add notes.txt\ngit commit -m \"Commit A: notes.txt with alpha\"\n\n# 3. Commit B: append beta to notes.txt\necho \"beta\" >> notes.txt\ngit add notes.txt\ngit commit -m \"Commit B: append beta\"\n\n# 4. Create branch topic at commit B\ngit branch topic\n\n# 5. Commit C: todo.txt containing one\necho \"one\" > todo.txt\ngit add todo.txt\ngit commit -m \"Commit C: todo.txt with one\"\n\n# 6. Add untracked files and directories\necho \"temporary notes\" > scratch.txt\nmkdir untracked_dir\necho \"log data\" > untracked_dir/temp.log\n\n# 7. Perform dry-run clean\ngit clean -fd --dry-run\n```\n\n**Expected Output:**\n```\nWould remove scratch.txt\nWould remove untracked_dir/\n```\n\n**Explanation:**\n- `-f` (force) overrides Git's default requirement for forced clean (`clean.requireForce`).\n- `-d` includes untracked directories in addition to untracked files.\n- `--dry-run` simulates the clean operation to preview removals without deleting anything.\n- Verification that nothing is deleted:\n```sh\ntest -f scratch.txt && echo \"scratch.txt exists\"\ntest -d untracked_dir && echo \"untracked_dir exists\"\ngit status --short\n# Output shows both items remain untracked:\n# ?? scratch.txt\n# ?? untracked_dir/\n```",
         "category": "Undoing Changes"
     },
     {

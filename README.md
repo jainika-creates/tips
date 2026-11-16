@@ -600,6 +600,20 @@ git branch -a --contains <commit-ish>
 git branch --contains <commit-ish>
 ```
 
+#### Recovery from Accidental Branch Deletion or Hard Reset
+
+- **Recovery Point:** Find the commit hash of the lost state via `git reflog`
+- **Commands Used:**
+  - Recover deleted branch: `git branch <branch-name> <commit-hash>`
+  - Recover hard reset: `git reset --hard HEAD@{1}`
+- **Verification Steps:**
+  - Verify branch reference: `git rev-parse <branch-name>`
+  - Verify restored tree state: `git rev-parse <branch-name>^{tree}`
+  - Verify working tree files and `git status`
+- **What Can and Cannot Be Recovered:**
+  - *Can recover:* Any committed revision present in `.git/objects` and referenced in `git reflog`.
+  - *Cannot recover:* Uncommitted working-tree edits that were not staged or committed prior to a destructive operation, or commits pruned after reflog expiry (`gc.reflogExpire`).
+
 ### Rename a branch
 ```sh
 git branch -m <new-branch-name>
@@ -1528,7 +1542,6 @@ git status --short
 # ?? scratch.txt
 # ?? untracked_dir/
 ```
-
 
 ### Unstaging Staged file
 ```sh
