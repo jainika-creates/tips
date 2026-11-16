@@ -1452,6 +1452,10 @@ git clean -f
 ```sh
 git clean -f -d
 ```
+**Alternatives:**
+```sh
+git clean -fd
+```
 
 ### Undo assume-unchanged.
 ```sh

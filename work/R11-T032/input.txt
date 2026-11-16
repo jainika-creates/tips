@@ -1,0 +1,46 @@
+# Inputs for Assignment R11-T032: git clean -f -d
+
+# 1. Initialize temporary Git repository on branch main
+git init -b main
+git config user.name "Course Student"
+git config user.email "student@example.invalid"
+
+# 2. Commit A: create notes.txt with alpha
+echo "alpha" > notes.txt
+git add notes.txt
+git commit -m "Commit A: create notes.txt with alpha"
+
+# 3. Commit B: append beta to notes.txt
+echo "beta" >> notes.txt
+git add notes.txt
+git commit -m "Commit B: append beta to notes.txt"
+
+# 4. Create branch topic at commit B
+git branch topic
+
+# 5. Commit C: create todo.txt with one
+echo "one" > todo.txt
+git add todo.txt
+git commit -m "Commit C: create todo.txt with one"
+
+# 6. Add untracked files and directories
+echo "scratch notes" > scratch.txt
+mkdir untracked_dir
+echo "log data inside untracked directory" > untracked_dir/temp.log
+
+# 7. Check pre-clean state
+git status --short
+git branch -v
+git ls-files --stage
+
+# 8. Execute forceful clean of untracked directory and files
+git clean -f -d
+
+# 9. Verify post-clean state
+git status --short
+git branch -v
+git ls-files --stage
+test ! -e untracked_dir
+test ! -e scratch.txt
+test -f notes.txt
+test -f todo.txt

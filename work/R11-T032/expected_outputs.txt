@@ -1,0 +1,24 @@
+[Pre-Clean Status]:
+?? scratch.txt
+?? untracked_dir/
+
+[Command Execution]: git clean -f -d
+Removing scratch.txt
+Removing untracked_dir/
+
+[Post-Clean Status]:
+nothing to commit, working tree clean
+
+[Ref State]:
+HEAD: refs/heads/main -> Commit C (unchanged)
+refs/heads/topic -> Commit B (unchanged)
+
+[Index State]:
+notes.txt: blob hash (unchanged)
+todo.txt: blob hash (unchanged)
+
+[Working-Tree State]:
+notes.txt: exists (unchanged)
+todo.txt: exists (unchanged)
+scratch.txt: deleted
+untracked_dir/: deleted

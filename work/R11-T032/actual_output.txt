@@ -1,0 +1,25 @@
+[Pre-Clean Status]:
+?? scratch.txt
+?? untracked_dir/
+
+[Command Execution]: git clean -f -d
+Removing scratch.txt
+Removing untracked_dir/
+
+[Post-Clean Status]:
+nothing to commit, working tree clean
+
+[Dynamic Object IDs]:
+Commit A: 31835bc4c05dacee510917e45ecee831a79fae04 (Tree: cc2ee81bf7d0a4bce166ed405d146622b745ee3f, Blob notes.txt: 4a58007052a65fbc2fc3f910f2855f45a4058e74)
+Commit B: a2d9d497ce8f30726cad6e67d028ee267725d611 (Tree: f85b72cccab2aab0cfca333f78ab1ff302be5f7b, Blob notes.txt: fbbee861521bd5355538b096fa3998541cd33909)
+Commit C: 4892f43dab2e4caee9dcda4cfac2c0a64475a4cc (Tree: 70d571a7a75867c09d38254b1252d5e2402adaa6, Blob todo.txt: 5626abf0f72e58d7a153368ba57db4c673c0e171)
+
+[Assertions]:
+All 7 state transition assertions passed successfully.
+Refs: Unaffected
+Commit Ancestry: Unaffected
+Index: Unaffected
+Untracked Directory: Removed
+Untracked Files: Removed
+Tracked Files: Preserved
+Working Tree: Clean
